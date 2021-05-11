@@ -1,0 +1,486 @@
+{% extends "user_default.html" %} {% block title %}Office Hours{%endblock%} {%
+block header %}
+<style>
+  @media only screen and (max-width: 600px) {
+    .w-100 {
+      width: 100%;
+    }
+  }
+  @media (max-width: 768px) {
+    .btn-responsive {
+      padding: 2px 4px;
+      font-size: 11px;
+      line-height: 1;
+      border-radius: 3px;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 992px) {
+    .btn-responsive {
+      padding: 4px 9px;
+      font-size: 12px;
+      line-height: 1.2;
+    }
+  }
+</style>
+{% endblock %} {%block content%}
+
+<div class="container mt-5">
+  {% with messages = get_flashed_messages(with_categories=true) %} {% if
+  messages %} {% for category, message in messages %}
+  <div
+    class="alert alert-{{ category }} alert-dismissible fade show"
+    role="alert"
+  >
+    <span>{{ message }}</span>
+  </div>
+  {% endfor %} {% endif %} {% endwith %}
+  <div class="row">
+    <div class="col border">
+      <h4 class="border-0 pt-2 text-center">Days Of Week</h4>
+    </div>
+    <div class="col border">
+      <h4 class="border-0 pt-2 text-center">Begin Time</h4>
+    </div>
+    <div class="col border">
+      <h4 class="border-0 pt-2 text-center">End Time</h4>
+    </div>
+
+    <div class="col">
+      <h4 class="border-0 pt-2 text-center"></h4>
+    </div>
+  </div>
+  {% for office in officeHours %}
+  <form method="POST" action="/action">
+    <div class="row">
+      <div class="col border">
+        <select
+        class="form-control bg-white border-0"
+                    
+                    name="days"
+                    required
+                  >
+                    <option value="monday" {% if office[1]=="monday" %} selected="selected"{% endif %}>Monday</option>
+                    <option value="tuesday" {% if office[1]=="tuesday" %} selected="selected"{% endif %}>Tuesday</option>
+                  <option value="wednesday" {% if office[1]=="wednesday" %} selected="selected"{% endif %}>Wednesday</option>
+                   <option value="thursday" {% if office[1]=="thursday" %} selected="selected"{% endif %}>Thurday</option>
+                     <option value="friday" {% if office[1]=="friday" %} selected="selected"{% endif %}>Friday</option>
+                   <option value="saturday" {% if office[1]=="saturday" %} selected="selected"{% endif %}>Saturday</option>
+                  </select>
+      
+      </div>
+      <div class="col border">
+        <select
+          class="form-control bg-white border-0"
+          name="beginTime"
+          required
+        >
+
+          <option value="8:00am" {% if office[2]=="8:00am" %} selected="selected"{% endif %}>8:00am</option>
+          <option value="8:30am" {% if office[2]=="8:30am" %} selected="selected"{% endif %}>8:30am</option>
+          <option value="9:00am" {% if office[2]=="9:00am" %} selected="selected"{% endif %}>9:00am</option>
+          <option value="9:30am" {% if office[2]=="9:30am" %} selected="selected"{% endif %}>9:30am</option>
+          <option value="10:00am" {% if office[2]=="10:00am" %} selected="selected"{% endif %}>10:00am</option>
+          <option value="10:30am" {% if office[2]=="10:30am" %} selected="selected"{% endif %}>10:30am</option>
+          <option value="11:00am" {% if office[2]=="11:00am" %} selected="selected"{% endif %}>11:00am</option>
+          <option value="11:30am" {% if office[2]=="11:30am" %} selected="selected"{% endif %}>11:30am</option>
+          <option value="12:00pm" {% if office[2]=="12:00pm" %} selected="selected"{% endif %}>12:00pm</option>
+          <option value="12:30pm" {% if office[2]=="12:30pm" %} selected="selected"{% endif %}>12:30pm</option>
+          <option value="1:00pm" {% if office[2]=="1:00pm" %} selected="selected"{% endif %}>1:00pm</option>
+          <option value="1:30pm" {% if office[2]=="1:30pm" %} selected="selected"{% endif %}>1:30pm</option>
+          <option value="2:00pm" {% if office[2]=="2:00pm" %} selected="selected"{% endif %}>2:00pm</option>
+          <option value="2:30pm" {% if office[2]=="2:30pm" %} selected="selected"{% endif %}>2:30pm</option>
+          <option value="3:00pm" {% if office[2]=="3:00pm" %} selected="selected"{% endif %}>3:00pm</option>
+          <option value="3:30pm" {% if office[2]=="3:30pm" %} selected="selected"{% endif %}>3:30pm</option>
+          <option value="4:00pm" {% if office[2]=="4:00pm" %} selected="selected"{% endif %}>4:00pm</option>
+          <option value="4:30pm" {% if office[2]=="4:30pm" %} selected="selected"{% endif %}>4:30pm</option>
+          <option value="5:00pm" {% if office[2]=="5:00pm" %} selected="selected"{% endif %}>5:00pm</option>
+          <option value="5:30pm" {% if office[2]=="5:30pm" %} selected="selected"{% endif %}>5:30pm</option>
+          <option value="6:00pm" {% if office[2]=="6:00pm" %} selected="selected"{% endif %}>6:00pm</option>
+          <option value="6:30pm" {% if office[2]=="6:30pm" %} selected="selected"{% endif %}>6:30pm</option>
+          <option value="7:00pm" {% if office[2]=="7:00pm" %} selected="selected"{% endif %}>7:00pm</option>
+          <option value="7:30pm" {% if office[2]=="7:30pm" %} selected="selected"{% endif %}>7:30pm</option>
+          <option value="8:00pm" {% if office[2]=="8:00pm" %} selected="selected"{% endif %}>8:00pm</option>
+          <option value="8:30pm" {% if office[2]=="8:30pm" %} selected="selected"{% endif %}>8:30pm</option>
+          <option value="9:00pm" {% if office[2]=="9:00pm" %} selected="selected"{% endif %}>9:00pm</option>
+          <option value="9:30pm" {% if office[2]=="9:30pm" %} selected="selected"{% endif %}>9:30pm</option>
+        </select>
+      </div>
+      <div class="col border">
+        <select
+          class="form-control bg-white border-0"
+          value="{{office[3]}}"
+          name="endTime"
+          selected
+          required
+        >
+        
+        <option value="8:30am" {% if office[3]=="8:30am" %} selected="selected"{% endif %}>8:30am</option>
+        <option value="9:00am" {% if office[3]=="9:00am" %} selected="selected"{% endif %}>9:00am</option>
+        <option value="9:30am" {% if office[3]=="9:30am" %} selected="selected"{% endif %}>9:30am</option>
+        <option value="10:00am" {% if office[3]=="10:00am" %} selected="selected"{% endif %}>10:00am</option>
+        <option value="10:30am" {% if office[3]=="10:30am" %} selected="selected"{% endif %}>10:30am</option>
+        <option value="11:00am" {% if office[3]=="11:00am" %} selected="selected"{% endif %}>11:00am</option>
+        <option value="11:30am" {% if office[3]=="11:30am" %} selected="selected"{% endif %}>11:30am</option>
+        <option value="12:00pm" {% if office[3]=="12:00pm" %} selected="selected"{% endif %}>12:00pm</option>
+        <option value="12:30pm" {% if office[3]=="12:30pm" %} selected="selected"{% endif %}>12:30pm</option>
+        <option value="1:00pm" {% if office[3]=="1:00pm" %} selected="selected"{% endif %}>1:00pm</option>
+        <option value="1:30pm" {% if office[3]=="1:30pm" %} selected="selected"{% endif %}>1:30pm</option>
+        <option value="2:00pm" {% if office[3]=="2:00pm" %} selected="selected"{% endif %}>2:00pm</option>
+        <option value="2:30pm" {% if office[3]=="2:30pm" %} selected="selected"{% endif %}>2:30pm</option>
+        <option value="3:00pm" {% if office[3]=="3:00pm" %} selected="selected"{% endif %}>3:00pm</option>
+        <option value="3:30pm" {% if office[3]=="3:30pm" %} selected="selected"{% endif %}>3:30pm</option>
+        <option value="4:00pm" {% if office[3]=="4:00pm" %} selected="selected"{% endif %}>4:00pm</option>
+        <option value="4:30pm" {% if office[3]=="4:30pm" %} selected="selected"{% endif %}>4:30pm</option>
+        <option value="5:00pm" {% if office[3]=="5:00pm" %} selected="selected"{% endif %}>5:00pm</option>
+        <option value="5:30pm" {% if office[3]=="5:30pm" %} selected="selected"{% endif %}>5:30pm</option>
+        <option value="6:00pm" {% if office[3]=="6:00pm" %} selected="selected"{% endif %}>6:00pm</option>
+        <option value="6:30pm" {% if office[3]=="6:30pm" %} selected="selected"{% endif %}>6:30pm</option>
+        <option value="7:00pm" {% if office[3]=="7:00pm" %} selected="selected"{% endif %}>7:00pm</option>
+        <option value="7:30pm" {% if office[3]=="7:30pm" %} selected="selected"{% endif %}>7:30pm</option>
+        <option value="8:00pm" {% if office[3]=="8:00pm" %} selected="selected"{% endif %}>8:00pm</option>
+        <option value="8:30pm" {% if office[3]=="8:30pm" %} selected="selected"{% endif %}>8:30pm</option>
+        <option value="9:00pm" {% if office[3]=="9:00pm" %} selected="selected"{% endif %}>9:00pm</option>
+        <option value="9:30pm" {% if office[3]=="9:30pm" %} selected="selected"{% endif %}>9:30pm</option>
+        <option value="10:00pm" {% if office[3]=="10:00pm" %} selected="selected"{% endif %}>9:30pm</option>
+        </select>
+      </div>
+
+      <div class="col">
+        <input name="sno" value="{{office[0]}}" hidden />
+        <button
+          class="btn btn-outline-warning btn-lg w-40"
+          name="action"
+          value="edit"
+        >
+          Edit
+        </button>
+        <button
+          class="btn btn-outline-danger btn-lg w-50"
+          name="action"
+          value="delete"
+        >
+          Remove
+        </button>
+      </div>
+    </div>
+  </form>
+
+  {% endfor %}
+</div>
+
+<div class="container mt-5">
+  <form method="POST" action="/action">
+    <div class="card">
+      <div class="card-body bg-dark text-light">
+        <h3 class="text-center"><strong> Office Hours </strong></h3>
+      </div>
+    </div>
+    <div class="card">
+      <div class="table-responsive">
+        <table class="table table-bordered w-200 mt-5">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    value="Days Of Week"
+                    id="days"
+                    readonly
+                  />
+                </div>
+              </th>
+              <th scope="col">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    value="Begin Time"
+                    id="beginTime"
+                    readonly
+                  />
+                </div>
+              </th>
+              <th scope="col">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    value="End Time"
+                    id="endTime"
+                    readonly
+                  />
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody id="tbody">
+            <tr>
+              <td>
+                <div class="form-group">
+                  <select
+                    class="form-control"
+                    id="exampleFormControlSelect1"
+                    name="days0"
+                  >
+                    <option value="monday">Monday</option>
+                    <option value="tuesday">Tuesday</option>
+                    <option value="wednesday">Wednesday</option>
+                    <option value="thursday">Thurday</option>
+                    <option value="friday">Friday</option>
+                    <option value="saturday">Saturday</option>
+                  </select>
+                </div>
+              </td>
+              <td>
+                <div class="form-group">
+                  <select class="form-control" id="BEGIN" name="beginTime0">
+                    <option value="8:00am">8:00am</option>
+                    <option value="8:30am">8:30am</option>
+                    <option value="9:00am">9:00am</option>
+                    <option value="9:30am">9:30am</option>
+                    <option value="10:00am">10:00am</option>
+                    <option value="10:30am">10:30am</option>
+                    <option value="11:00am">11:00am</option>
+                    <option value="11:30am">11:30am</option>
+                    <option value="12:00pm">12:00pm</option>
+                    <option value="12:30pm">12:30pm</option>
+                    <option value="1:00pm">1:00pm</option>
+                    <option value="1:30pm">1:30pm</option>
+                    <option value="2:00pm">2:00pm</option>
+                    <option value="2:30pm">2:30pm</option>
+                    <option value="3:00pm">3:00pm</option>
+                    <option value="3:30pm">3:30pm</option>
+                    <option value="4:00pm">4:00pm</option>
+                    <option value="4:30pm">4:30pm</option>
+                    <option value="5:00pm">5:00pm</option>
+                    <option value="5:30pm">5:30pm</option>
+                    <option value="6:00pm">6:00pm</option>
+                    <option value="6:30pm">6:30pm</option>
+                    <option value="7:00pm">7:00pm</option>
+                    <option value="7:30pm">7:30pm</option>
+                    <option value="8:00pm">8:00pm</option>
+                    <option value="8:30pm">8:30pm</option>
+                    <option value="9:00pm">9:00pm</option>
+                    <option value="9:30pm">9:30pm</option>
+                  </select>
+                </div>
+              </td>
+              <td>
+                <div class="form-group">
+                  <select class="form-control" id="END" name="endTime0">
+                    <option value="8:30am">8:30am</option>
+                    <option value="9:00am">9:00am</option>
+                    <option value="9:30am">9:30am</option>
+                    <option value="10:00am">10:00am</option>
+                    <option value="10:30am">10:30am</option>
+                    <option value="11:00am">11:00am</option>
+                    <option value="11:30am">11:30am</option>
+                    <option value="12:00pm">12:00pm</option>
+                    <option value="12:30pm">12:30pm</option>
+                    <option value="1:00pm">1:00pm</option>
+                    <option value="1:30pm">1:30pm</option>
+                    <option value="2:00pm">2:00pm</option>
+                    <option value="2:30pm">2:30pm</option>
+                    <option value="3:00pm">3:00pm</option>
+                    <option value="3:30pm">3:30pm</option>
+                    <option value="4:00pm">4:00pm</option>
+                    <option value="4:30pm">4:30pm</option>
+                    <option value="5:00pm">5:00pm</option>
+                    <option value="5:30pm">5:30pm</option>
+                    <option value="6:00pm">6:00pm</option>
+                    <option value="6:30pm">6:30pm</option>
+                    <option value="7:00pm">7:00pm</option>
+                    <option value="7:30pm">7:30pm</option>
+                    <option value="8:00pm">8:00pm</option>
+                    <option value="8:30pm">8:30pm</option>
+                    <option value="9:00pm">9:00pm</option>
+                    <option value="9:30pm">9:30pm</option>
+                    <option value="10:00pm">10:00pm</option>
+                  </select>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <button
+        class="btn btn-outline-primary btn-lg"
+        type="button"
+        onclick="add_row()"
+      >
+        <i class="fa fa-plus"></i> Row
+      </button>
+      <button
+        class="btn btn-outline-danger btn-lg"
+        id="remove"
+        type="button"
+        onclick="delete_row()"
+      >
+        <i class="fa fa-minus"></i> Row
+      </button>
+      <div class="text-center mt-5">
+        <button
+          class="btn btn-outline-success btn-lg"
+          name="action"
+          value="submit"
+        >
+          Submit
+        </button>
+      </div>
+
+      <br /><br />
+    </div>
+  </form>
+</div>
+{%endblock%} {%block scriptsBlock%}
+<script>
+  document.getElementById("remove").style.display = "none";
+
+  function delete_row() {
+    $("tr").last().remove();
+    if (document.querySelectorAll("tr").length - 1 > 1) {
+      document.getElementById("remove").style.display = "initial";
+    } else {
+      document.getElementById("remove").style.display = "none";
+    }
+  }
+
+  var row = 1;
+
+  function add_row() {
+    document.getElementById("remove").style.display = "initial";
+
+    $("tbody").append(
+      `<tr>
+            
+            <td> <div class="form-group">
+                <select class="form-control" id="exampleFormControlSelect1" name="days` +
+        row +
+        `">
+        
+        <option value="monday">Monday</option>
+        <option value="tuesday">Tuesday</option>
+        <option value="wednesday">Wednesday</option>
+        <option value="thursday">Thurday</option>
+        <option value="friday">Friday</option>
+        <option value="saturday">Saturday</option>
+                </select>
+              </div></td>
+              <td> <div class="form-group">
+                <select class="form-control" id="exampleFormControlSelect1" name="beginTime` +
+        row +
+        `">
+        
+        <option value="8:00am">8:00am</option>
+        <option value="8:30am">8:30am</option>
+        <option value="9:00am">9:00am</option>
+        <option value="9:30am">9:30am</option>
+        <option value="10:00am">10:00am</option>
+        <option value="10:30am">10:30am</option>
+        <option value="11:00am">11:00am</option>
+        <option value="11:30am">11:30am</option>
+        <option value="12:00pm">12:00pm</option>
+        <option value="12:30pm">12:30pm</option>
+        <option value="1:00pm">1:00pm</option>
+        <option value="1:30pm">1:30pm</option>
+        <option value="2:00pm">2:00pm</option>
+        <option value="2:30pm">2:30pm</option>
+        <option value="3:00pm">3:00pm</option>
+        <option value="3:30pm">3:30pm</option>
+        <option value="4:00pm">4:00pm</option>
+        <option value="4:30pm">4:30pm</option>
+        <option value="5:00pm">5:00pm</option>
+        <option value="5:30pm">5:30pm</option>
+        <option value="6:00pm">6:00pm</option>
+        <option value="6:30pm">6:30pm</option>
+        <option value="7:00pm">7:00pm</option>
+        <option value="7:30pm">7:30pm</option>
+        <option value="8:00pm">8:00pm</option>
+        <option value="8:30pm">8:30pm</option>
+        <option value="9:00pm">9:00pm</option>
+        <option value="9:30pm">9:30pm</option>
+                </select>
+              </div></td>
+              <td> <div class="form-group">
+                <select class="form-control" id="exampleFormControlSelect1" name="endTime` +
+        row +
+        `">
+        
+        <option value="8:30am">8:30am</option>
+        <option value="9:00am">9:00am</option>
+        <option value="9:30am">9:30am</option>
+        <option value="10:00am">10:00am</option>
+        <option value="10:30am">10:30am</option>
+        <option value="11:00am">11:00am</option>
+        <option value="11:30am">11:30am</option>
+        <option value="12:00pm">12:00pm</option>
+        <option value="12:30pm">12:30pm</option>
+        <option value="1:00pm">1:00pm</option>
+        <option value="1:30pm">1:30pm</option>
+        <option value="2:00pm">2:00pm</option>
+        <option value="2:30pm">2:30pm</option>
+        <option value="3:00pm">3:00pm</option>
+        <option value="3:30pm">3:30pm</option>
+        <option value="4:00pm">4:00pm</option>
+        <option value="4:30pm">4:30pm</option>
+        <option value="5:00pm">5:00pm</option>
+        <option value="5:30pm">5:30pm</option>
+        <option value="6:00pm">6:00pm</option>
+        <option value="6:30pm">6:30pm</option>
+        <option value="7:00pm">7:00pm</option>
+        <option value="7:30pm">7:30pm</option>
+        <option value="8:00pm">8:00pm</option>
+        <option value="8:30pm">8:30pm</option>
+        <option value="9:00pm">9:00pm</option>
+        <option value="9:30pm">9:30pm</option>
+        <option value="10:00pm">10:00pm</option>
+                </select>
+              </div></td>
+              
+          </tr>
+`
+    );
+
+    row++;
+  }
+
+  function auto_add_rows(val) {
+    var x = val.value;
+    console.log(x);
+    var y = document.getElementById("exampleFormControlSelect1").value;
+    var lenRows = document.querySelectorAll("tr").length;
+    console.log(lenRows - 1);
+    if (x >= 1) {
+      if (x > lenRows - 1) {
+        for (i = 0; i < x - (lenRows - 1); i++) {
+          add_row();
+        }
+      }
+      if (x < lenRows - 1) {
+        for (i = 0; i < lenRows - 1 - x; i++) {
+          delete_row();
+          console.log("delete");
+        }
+      }
+    }
+  }
+
+  function change_select(val) {
+    console.log(val.value);
+    $("#number").attr("name", val.value);
+  }
+
+  function unrequired_fileds() {
+    var table = document.getElementById("tbody");
+    var input = table.getElementsByTagName("input");
+    for (var z = 0; z < input.length; z++) {
+      input[z].required = false;
+    }
+  }
+</script>
+
+
+{%endblock %}

@@ -1,0 +1,297 @@
+{% extends "user_default.html" %} {% block title %}Syllabus{%endblock%} {% block
+header %}
+
+<style>
+  @media only screen and (max-width: 600px) {
+    .w-100 {
+      width: 100%;
+    }
+  }
+  @media (max-width: 768px) {
+    .btn-responsive {
+      padding: 2px 4px;
+      font-size: 11px;
+      line-height: 1;
+      border-radius: 3px;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 992px) {
+    .btn-responsive {
+      padding: 4px 9px;
+      font-size: 12px;
+      line-height: 1.2;
+    }
+  }
+</style>
+{% endblock %} {%block content%}
+<div class="container mt-5">
+  {% with messages = get_flashed_messages(with_categories=true) %} {% if
+  messages %} {% for category, message in messages %}
+  <div
+    class="alert alert-{{ category }} alert-dismissible fade show"
+    role="alert"
+  >
+    <span>{{ message }}</span>
+  </div>
+  {% endfor %} {% endif %} {% endwith %} 
+  <div class="row">
+    <div class="col border">
+      <h4 class="border-0 pt-2 text-center">Course</h4>
+    </div>
+    <div class="col border">
+      <h4 class="border-0 pt-2 text-center">Section</h4>
+    </div>
+    <div class="col border">
+      <h4 class="border-0 pt-2 text-center">File</h4>
+    </div>
+
+    <div class="col">
+      <h4 class="border-0 pt-2 text-center"></h4>
+    </div>
+  </div>
+  {% for syllabus in Syllabus %}
+  <form method="POST" action="/process">
+    <div class="row">
+      <div class="col border text-center py-3">{{syllabus[1]}}</div>
+      <div class="col border text-center py-3">{{syllabus[2]}}</div>
+      <div class="col border">
+        <input name="sno" value="{{syllabus[0]}}" hidden />
+        <button
+          class="btn btn-outline-success btn-lg w-100"
+          name="action"
+          value="download"
+        >
+          Download
+        </button>
+      </div>
+
+      <div class="col">
+        <input name="sno" value="{{syllabus[0]}}" hidden />
+        <button
+          class="btn btn-outline-danger btn-lg w-100"
+          name="action"
+          value="delete"
+        >
+          Remove
+        </button>
+      </div>
+    </div>
+  </form>
+
+  {% endfor %} 
+</div>
+<div class="container mt-5">
+  <form method="POST" action="/process" enctype="multipart/form-data">
+    <div class="card">
+      <div class="card-body bg-dark text-light">
+        <h3 class="text-center">
+          <strong> Syllabus </strong>
+        </h3>
+      </div>
+    </div>
+    <div class="card">
+      <div class="table-responsive">
+        <table class="table table-bordered w-200 mt-5">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    value="Course #"
+                    readonly
+                  />
+                </div>
+              </th>
+              <th scope="col">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Section #"
+                    readonly
+                  />
+                </div>
+              </th>
+              <th scope="col">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Add File"
+                    readonly
+                  />
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody id="tbody">
+            <tr>
+              <td>
+                <div class="form-group">
+                  <select class="form-control" name="course0">
+                    <option value="CPSC12U">CPSC12U</option>
+                    <option value="CPSC13U">CPSC13U</option>
+                    <option value="CPSC14U">CPSC14U</option>
+                    <option value="CPSC15U">CPSC15U</option>
+                    <option value="CPSC16U">CPSC16U</option>
+                    <option value="CPSC17U">CPSC17U</option>
+                    <option value="CPSC18U">CPSC18U</option>
+                  </select>
+                </div>
+              </td>
+              <td>
+                <div class="form-group">
+                  <select class="form-control" name="section0">
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                  </select>
+                </div>
+              </td>
+              <td>
+                <div class="form-group">
+                  <input
+                    type="file"
+                    class="form-control"
+                    placeholder="Add File"
+                    name="FileSyllabus0"
+                  />
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <button
+        class="btn btn-outline-primary btn-lg"
+        type="button"
+        onclick="add_row()"
+      >
+        <i class="fa fa-plus"></i> Row
+      </button>
+      <button
+        class="btn btn-outline-danger btn-lg"
+        id="remove"
+        type="button"
+        onclick="delete_row()"
+      >
+        <i class="fa fa-minus"></i> Row
+      </button>
+      <div class="text-center mt-5">
+        <button
+          class="btn btn-outline-success btn-lg"
+          name="action"
+          value="submit"
+        >
+          Submit
+        </button>
+      </div>
+
+      <br /><br />
+    </div>
+  </form>
+</div>
+{%endblock%} {%block scriptsBlock%}
+
+<script>
+  document.getElementById("remove").style.display = "none";
+
+  function delete_row() {
+    $("tr").last().remove();
+    if (document.querySelectorAll("tr").length - 1 > 1) {
+      document.getElementById("remove").style.display = "initial";
+    } else {
+      document.getElementById("remove").style.display = "none";
+    }
+  }
+  var row = 1;
+
+  function add_row() {
+    document.getElementById("remove").style.display = "initial";
+
+    $("tbody").append(
+      `<tr>
+            
+            <td> <div class="form-group">
+                <select class="form-control" name="course` +
+        row +
+        `">
+        <option value="CPSC12U">CPSC12U</option>
+        <option value="CPSC13U">CPSC13U</option>
+        <option value="CPSC14U">CPSC14U</option>
+        <option value="CPSC15U">CPSC15U</option>
+        <option value="CPSC16U">CPSC16U</option>
+        <option value="CPSC17U">CPSC17U</option>
+        <option value="CPSC18U">CPSC18U</option>
+                </select>
+              </div></td>
+              <td> <div class="form-group">
+                <select class="form-control" name="section` +
+        row +
+        `">
+           
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+        <option value="D">D</option>
+        <option value="E">E</option>
+                </select>
+              </div></td>
+              <td> <div class="form-group">
+                <input
+                        type="file"
+                        class="form-control"
+                        name="FileSyllabus` +
+        row +
+        `">
+                
+                
+              </div></td>
+              
+          </tr>
+`
+    );
+
+    row++;
+  }
+
+  function auto_add_rows(val) {
+    var x = val.value;
+    console.log(x);
+    var y = document.getElementById("exampleFormControlSelect1").value;
+    var lenRows = document.querySelectorAll("tr").length;
+    console.log(lenRows - 1);
+    if (x >= 1) {
+      if (x > lenRows - 1) {
+        for (i = 0; i < x - (lenRows - 1); i++) {
+          add_row();
+        }
+      }
+      if (x < lenRows - 1) {
+        for (i = 0; i < lenRows - 1 - x; i++) {
+          delete_row();
+          console.log("delete");
+        }
+      }
+    }
+  }
+
+  function change_select(val) {
+    console.log(val.value);
+    $("#number").attr("name", val.value);
+  }
+
+  function unrequired_fileds() {
+    var table = document.getElementById("tbody");
+    var input = table.getElementsByTagName("input");
+    for (var z = 0; z < input.length; z++) {
+      input[z].required = false;
+    }
+  }
+</script>
+{%endblock %}
